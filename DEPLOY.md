@@ -28,8 +28,10 @@ Free PHP 8 + MySQL + phpMyAdmin + a free subdomain. Closest to XAMPP.
 4. Upload the project files to the `htdocs/` folder via the **File Manager** or
    FTP (host/user/password are in **FTP Accounts**). Upload the *contents* of
    `attendance-system/` into `htdocs/`.
-5. Import the database: open **phpMyAdmin** from the client area, select your
-   database, go to **Import**, and upload `database/attendance.sql`.
+5. Import the database: open **phpMyAdmin** from the client area, **select your
+   existing database on the left**, go to **Import**, and upload
+   **`database/attendance_hosting.sql`** (NOT `attendance.sql` — the shared-hosting
+   file omits `CREATE DATABASE`/`USE`, which shared hosts forbid).
 6. Load demo data (optional): visit `https://yoursite/install.php` — but on
    InfinityFree the DB user can't create databases, so instead just run the
    seed by temporarily uploading and hitting a small script, or skip demo data
