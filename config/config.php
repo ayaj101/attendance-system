@@ -8,11 +8,13 @@
 
 declare(strict_types=1);
 
-// Show errors during development. Set display_errors to 0 in production.
+// Environment: "development" (default) shows errors; "production" hides them.
+define('APP_ENV', getenv('APP_ENV') ?: 'development');
 error_reporting(E_ALL);
-ini_set('display_errors', '1');
+ini_set('display_errors', APP_ENV === 'production' ? '0' : '1');
+ini_set('log_errors', '1');
 
-date_default_timezone_set('Asia/Kolkata');
+date_default_timezone_set(getenv('APP_TZ') ?: 'Asia/Kolkata');
 
 // --- Database credentials (defaults match a standard XAMPP install) ---
 define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
