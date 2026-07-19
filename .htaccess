@@ -1,0 +1,21 @@
+# Apache configuration for the Attendance & Overtime Management System.
+
+# Default document.
+DirectoryIndex index.php
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Block direct web access to server-side config, SQL and PHP CLI seeders.
+<FilesMatch "\.(sql|md|yml|yaml)$">
+    Require all denied
+</FilesMatch>
+
+RedirectMatch 403 ^/?config/
+RedirectMatch 403 ^/?database/
+
+# Prevent listing directories.
+Options -Indexes

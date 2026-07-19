@@ -1,0 +1,41 @@
+# One-command local/production stack: PHP+Apache app + MySQL.
+#   docker compose up -d
+# Then open http://localhost:8080/install.php once, and log in at
+# http://localhost:8080/ with admin / admin123.
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: attendance_system
+      MYSQL_USER: attendance
+      MYSQL_PASSWORD: attendancepass
+    # Auto-import the schema on first boot (empty data dir only).
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./database/attendance.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpass"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      APP_ENV: production
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: attendance_system
+      DB_USER: attendance
+      DB_PASS: attendancepass
+    ports:
+      - "8080:80"
+
+volumes:
+  db_data:
