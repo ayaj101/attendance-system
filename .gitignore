@@ -10,3 +10,5 @@ Thumbs.db
 *.log
 .idea/
 .vscode/
+test-report.md
+TEST_PLAN.md
