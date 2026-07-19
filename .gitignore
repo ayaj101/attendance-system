@@ -1,0 +1,12 @@
+# Uploaded files (keep the folders, ignore contents)
+uploads/photos/*
+uploads/logo/*
+!uploads/photos/.gitkeep
+!uploads/logo/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/
